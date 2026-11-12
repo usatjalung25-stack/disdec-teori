@@ -1,4 +1,8 @@
 ## Pertemuan 02: Proses dan Komunikasi Antar Proses
+## format yang saya gunakan: 
+buat kan rakuman Materi Minggu 01.02.03.04 : .......
+Prompt: .....
+buat dalam format REAMDE.md
 
 ### 1. Proses pada Sistem Terdistribusi
 - Proses berjalan pada node yang berbeda dan tidak memiliki shared memory.
