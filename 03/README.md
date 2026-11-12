@@ -9,32 +9,6 @@ dosen: "Dr. Bambang Purnomosidi D. P."
 minggu: 2
 topik: [proses, IPC, message passing, RPC, MOM, microservices, logical clock]
 ---
-FROM
-┌─────────────────────────────────────────────┐
-│              FORM RANGKUMAN                 │
-├─────────────────────────────────────────────┤
-│                                             │
-│  Judul       : ___________________________  │
-│                                             │
-│  Mata Kuliah : ___________________________  │
-│                                             │
-│  Kode        : ___________________________  │
-│                                             │
-│  SKS         : ___________________________  │
-│                                             │
-│  Prodi       : ___________________________  │
-│                                             │
-│  Institusi   : UTDI                         │
-│                                             │
-│  Dosen       : Dr. Bambang Purnomosidi D.P. │
-│                                             │
-│  Minggu      : 4                            │
-│                                             │
-│  Topik       : ___________________________  │
-│                ___________________________  │
-│                ___________________________  │
-│                                             │
-└─────────────────────────────────────────────┘
 # Minggu 02 — Proses dan Komunikasi Antar Proses (IPC)
 
 ## Tujuan Pembelajaran
