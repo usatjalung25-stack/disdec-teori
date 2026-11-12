@@ -9,32 +9,6 @@ dosen: "Dr. Bambang Purnomosidi D. P."
 minggu: 1
 topik: [terdistribusi, terdesentralisasi, arsitektur, CAP theorem, konsistensi]
 ---
-FROM
-┌─────────────────────────────────────────────┐
-│              FORM RANGKUMAN                 │
-├─────────────────────────────────────────────┤
-│                                             │
-│  Judul       : ___________________________  │
-│                                             │
-│  Mata Kuliah : ___________________________  │
-│                                             │
-│  Kode        : ___________________________  │
-│                                             │
-│  SKS         : ___________________________  │
-│                                             │
-│  Prodi       : ___________________________  │
-│                                             │
-│  Institusi   : UTDI                         │
-│                                             │
-│  Dosen       : Dr. Bambang Purnomosidi D.P. │
-│                                             │
-│  Minggu      : 4                            │
-│                                             │
-│  Topik       : ___________________________  │
-│                ___________________________  │
-│                ___________________________  │
-│                                             │
-└─────────────────────────────────────────────┘
 
 # Minggu 01 — Pengenalan Sistem Terdistribusi dan Terdesentralisasi
 
