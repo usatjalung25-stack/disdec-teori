@@ -1,142 +1,20 @@
 ---
-title: "Minggu 02 — Proses dan Komunikasi Antar Proses pada Sistem Terdistribusi"
-mata_kuliah: "Sistem Terdistribusi dan Terdesentralisasi"
+Pertemuan 02: Proses dan Komunikasi Antar Proses pada Sistem Terdistribusi
+mata_kuliah: "Sistem Terdistribusi dan Terdesentralisasi
 kode: FIF25002T
-sks: 3
-prodi: Informatika
-institusi: UTDI
-dosen: "Dr. Bambang Purnomosidi D. P."
-minggu: 2
-topik: [proses, IPC, message passing, RPC, MOM, microservices, logical clock]
+dosen: "Dr. Bambang Purnomosidi D. P.
 ---
-# Minggu 02 — Proses dan Komunikasi Antar Proses (IPC)
 
-## Tujuan Pembelajaran
-- Menjelaskan konsep **proses** pada sistem terdistribusi.
-- Menjelaskan berbagai jenis **komunikasi antar proses (IPC)**.
-- Menganalisis isu **sinkronisasi, reliabilitas, dan keamanan**.
-- Mengaitkan konsep ke contoh nyata: microservices, cloud, distributed messaging.
+# Pertemuan 02: Proses dan Komunikasi Antar Proses
 
-## Konsep Utama & Penjelasan
+Proses adalah program yang sedang berjalan. Program itu sendiri hanya tumpukan instruksi yang tersimpan di disk. Begitu dijalankan, program dimuat ke memori dan menjadi proses, lalu sistem operasi mengatur kapan proses itu mendapat giliran memakai CPU. Sistem operasi mengelola proses lewat tiga hal, yaitu membuat proses baru, memindahkan proses ke tempat lain, dan memantau kondisi proses.
 
-### 1. Proses dan manajemen proses
-- **Program** disimpan di disk; saat dijalankan menjadi **proses** di RAM. Proses dapat berisi beberapa **thread** yang dijadwalkan oleh *scheduler* OS ke CPU (*context switch*, *preemption*).
-- Manajemen proses: **process creation**, **process migration**, **process monitoring**.
+Dalam sistem terdistribusi, setiap komputer (node) menjalankan prosesnya sendiri. Supaya semuanya bisa bekerja seperti satu sistem, proses-proses itu harus saling bertukar informasi. Contohnya aplikasi ojek online yang punya layanan terpisah untuk data pengemudi, pelacakan lokasi, dan penghitung biaya, atau chat dan video call di WhatsApp. Masalahnya, proses yang berada di komputer berbeda tidak bisa memakai memori yang sama. Itu sebabnya cara komunikasi lewat shared memory tidak cocok dipakai di sistem terdistribusi.
 
-### 2. Proses dan komunikasi pada sistem terdistribusi
-- Setiap node menjalankan proses; agar bekerja sebagai satu kesatuan logis, proses antar node harus **berkomunikasi**.
-- Proses bisa berada di node berbeda, sehingga **tidak ada shared memory** → dibutuhkan IPC khusus.
-- Contoh: multiplayer games, Gojek/Grab (UI ↔ service driver, pelacakan lokasi, hitung biaya), chat/video call WhatsApp.
+Cara yang dipakai adalah saling mengirim pesan. Pengiriman pesan bisa langsung memakai socket, bisa tidak langsung lewat antrean pesan (message queue), atau memakai pola publish/subscribe, di mana pengirim menaruh pesan di sebuah topik dan semua pelanggan topik itu menerimanya. Ada empat jenis komunikasi antar proses. Pertama shared memory yang tadi sudah disebut tidak cocok. Kedua message passing, dengan standar bernama MPI. Ketiga RPC (Remote Procedure Call), yaitu memanggil fungsi yang ada di komputer lain seolah-olah fungsi itu ada di komputer sendiri, contohnya gRPC. Keempat middleware berbasis pesan (MOM) yang mengirim pesan secara tidak menunggu, dengan protokol seperti AMQP, MQTT, dan XMPP.
 
-### 3. Model komunikasi pesan
-- **Langsung**: memakai *socket*.
-- **Tidak langsung**: *mailbox / message queue*.
-- **Pub/Sub**: publisher mengirim ke *topic*, subscriber menerima.
+Komunikasi juga dibedakan menjadi sinkron dan asinkron. Pada komunikasi sinkron, pengirim menunggu sampai jawaban datang. Pada komunikasi asinkron, pengirim melanjutkan pekerjaan lain dan jawaban diurus saat sudah tiba. Dalam praktiknya ada beberapa masalah yang harus diatasi. Pesan bisa hilang, jadi dibutuhkan konfirmasi dan pengiriman ulang. Urutan pesan bisa kacau, jadi perlu antrean yang menjaga urutan. Pesan juga harus aman dengan enkripsi dan autentikasi, dan kecepatan jaringan harus diperhatikan. Protokol dasarnya TCP, UDP, dan HTTP, sedangkan gRPC, GraphQL, dan REST berjalan di atas HTTP.
 
-### 4. Empat jenis IPC
-| Jenis | Keterangan |
-|---|---|
-| **Shared Memory** | Tidak cocok untuk sistem terdistribusi (tidak ada akses memori antar node) |
-| **Message Passing** | Standar **MPI** (versi 5.0 menurut slide); implementasi Python: `mpi4py`; OpenMPI |
-| **RPC** | Klien memanggil prosedur di server lewat *stub*; contoh **gRPC** (Proto Request/Response, lintas bahasa) |
-| **Middleware (MOM)** | Infrastruktur pertukaran pesan **asinkron** antar aplikasi |
+Satu persoalan lagi adalah waktu. Setiap komputer punya jam sendiri, dan jam-jam itu lama-lama bergeser. Jam bisa disamakan dengan bantuan jam atom, GPS, dan protokol NTP atau PTP. Tetapi kalau yang penting hanya urutan kejadian, bisa dipakai logical clock buatan Leslie Lamport. Caranya, setiap kejadian menambah angka penghitung satu. Saat mengirim pesan, angka itu ikut dikirim. Saat menerima pesan, komputer mengambil angka yang lebih besar antara miliknya dan yang diterima, lalu menambah satu. Dengan cara ini urutan kejadian tetap benar walau jam komputernya tidak sama. Di bagian akhir disebut juga alat koordinasi seperti ZooKeeper dan etcd, protokol konsensus Raft dan Paxos, serta isu terbaru seperti edge computing, observability, dan Kubernetes.
 
-**Standar/protokol MOM**: XATMI, AMQP (enterprise apps), HLA IEEE 1516, MQTT (perangkat terbatas sumber daya), DDS (OMG), XMPP.
-
-### 5. Sinkron vs asinkron
-- **Sinkron**: klien mengirim request lalu **menunggu** respons.
-- **Asinkron**: klien **lanjut bekerja**, respons ditangani saat tiba.
-
-### 6. Masalah pada komunikasi antar proses
-| Masalah | Solusi |
-|---|---|
-| **Reliability** (pesan lengkap & berurutan) | Acknowledgement, transmisi ulang, protokol andal seperti TCP |
-| **Ordering** | Pipes (FIFO), message queues, shared memory, sockets/message passing, RPC |
-| **Security** | Enkripsi, autentikasi |
-| **Performance** | Perhatikan latency & bandwidth |
-
-### 7. Protokol komunikasi
-- Protokol dasar: **TCP, UDP, HTTP**.
-- Berjalan di atas HTTP sebagai transport: **gRPC, GraphQL, REST**.
-- HTTP/2 memakai TCP + TLS; HTTP/3 memakai **QUIC di atas UDP**.
-
-### 8. Sinkronisasi clock dan logical clock (pengantar)
-- Tiap node punya clock lokal yang **bergeser** (*drift*) akibat latensi jaringan dan perangkat keras.
-- Sinkronisasi eksternal: atomic clock (TAI), GPS, UTC, lalu protokol **NTP** atau **PTP** (PTP lebih presisi).
-- **Lamport Logical Clock** tidak terkait waktu nyata:
-  1. Setiap kejadian → counter +1.
-  2. Saat mengirim pesan → sertakan counter.
-  3. Saat menerima → ambil `max(lokal, pesan)` lalu +1.
-- Pengembangan lanjutan: Vector clocks (Fidge & Mattern, 1988), Plausible clocks, Chain clocks, Interval Tree clocks, Blum clocks.
-
-### 9. Koordinasi proses, tantangan, dan isu terkini
-- **Koordinasi**: Apache ZooKeeper, etcd, Consul, ClickHouse Keeper, Oxia, KRaft.
-- **Tantangan & solusi**: message loss (retransmission + ACK), deadlock (timeout, detection algorithm), data inconsistency (Raft, Paxos), security (SSL/TLS, OAuth2).
-- **Current issues**: Edge & Fog Computing, observability & tracing (telemetry), container orchestration (Kubernetes, Docker Swarm).
-
-## Contoh / Studi Kasus
-
-**Socket server (echo)**
-```python
-import socket
-
-HOST = '127.0.0.1'
-PORT = 65432
-
-with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-    s.bind((HOST, PORT))
-    s.listen()
-    conn, addr = s.accept()
-    with conn:
-        print(f"Connected by {addr}")
-        while True:
-            data = conn.recv(1024)
-            if not data:
-                break
-            print(f"Received: {data.decode()}")
-            conn.sendall(data)  # echo back
-```
-
-**Socket client**
-```python
-import socket
-
-with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-    s.connect(('127.0.0.1', 65432))
-    s.sendall(b"Hello, world!")
-    data = s.recv(1024)
-
-print(f"Received from server: {data.decode()}")
-```
-
-**Lamport clock (3 service)**: Sales → Product → Invoice, semua mulai dari 0.
-1. Sales mencatat transaksi → clock 1, kirim ke Product dengan (1).
-2. Product menerima (1), `max(0,1)=1`, +1 → 2, kirim ke Invoice dengan (2).
-3. Invoice menerima (2), `max(0,2)=2`, +1 → 3, membuat faktur.
-
-Urutan yang benar terjaga walaupun timestamp jam nyata bisa bergeser.
-
-**Microservices**: UI terhubung ke banyak microservice, masing-masing dengan database sendiri.
-
-## Poin Penting (Key Takeaways)
-- Karena tidak ada shared memory antar node, sistem terdistribusi mengandalkan **message passing, RPC, dan middleware**.
-- Pilihan **sinkron vs asinkron** dan jaminan **reliability, ordering, security** menentukan desain komunikasi antar service.
-- Karena jam fisik tidak bisa dipercaya sepenuhnya, **logical clock** dipakai untuk menjaga urutan kejadian.
-
-## Bahan Diskusi
-1. Apakah GraphQL merupakan contoh RPC?
-2. Apakah REST merupakan contoh RPC?
-3. Apakah telemetry merupakan solusi etis?
-
-## Glosarium
-| Istilah | Pengertian |
-|---|---|
-| IPC | Inter-Process Communication, komunikasi antar proses |
-| Socket | Titik akhir komunikasi jaringan langsung antar proses |
-| RPC | Pemanggilan prosedur di mesin lain seolah lokal |
-| Stub | Perwakilan lokal yang mengemas dan mengirim panggilan RPC |
-| MOM | Message-Oriented Middleware |
-| Pub/Sub | Pola publish–subscribe lewat topic |
-| MPI | Message Passing Interface, standar message passing |
-| Lamport clock | Counter logis untuk mengurutkan kejadian |
-| NTP / PTP | Protokol sinkronisasi waktu (PTP lebih presisi) |
+**Yang harus di ingat yah itu :** karena tidak ada memori bersama antar komputer, komunikasi dilakukan dengan mengirim pesan, dan urutan kejadian dijaga dengan logical clock.
