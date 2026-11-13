@@ -2,6 +2,7 @@
 Pertemuan 01: Pengenalan Sistem Terdistribusi dan Terdesentralisasi"
 mata_kuliah: "Sistem Terdistribusi dan Terdesentralisasi"
 kode: FIF25002T
+Usat Jalung: 255410017
 dosen: "Dr. Bambang Purnomosidi D. P."
 ---
 
