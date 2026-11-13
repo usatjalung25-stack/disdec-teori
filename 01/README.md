@@ -1,122 +1,20 @@
 ---
-title: "Minggu 01 — Pengenalan Sistem Terdistribusi dan Terdesentralisasi"
+Pertemuan 01: Pengenalan Sistem Terdistribusi dan Terdesentralisasi"
 mata_kuliah: "Sistem Terdistribusi dan Terdesentralisasi"
 kode: FIF25002T
-sks: 3
-prodi: Informatika
-institusi: UTDI
 dosen: "Dr. Bambang Purnomosidi D. P."
-minggu: 1
-topik: [terdistribusi, terdesentralisasi, arsitektur, CAP theorem, konsistensi]
 ---
 
-# Minggu 01 — Pengenalan Sistem Terdistribusi dan Terdesentralisasi
+# Pertemuan 01: Pengenalan Sistem Terdistribusi dan Terdesentralisasi
 
-## Tujuan Pembelajaran
-- Menjelaskan konsep **sistem terdistribusi**.
-- Menjelaskan konsep **sistem terdesentralisasi**.
-- Menjelaskan **perbedaan** keduanya.
-- Menyebutkan contoh penerapan nyata keduanya.
-- Menyebutkan **tantangan dan tren** terbaru.
+Aplikasi yang kita pakai sehari-hari seperti Google, Netflix, atau YouTube dipakai oleh jutaan orang pada waktu yang sama dan harus bisa diakses kapan saja. Kalau semuanya dijalankan di satu komputer saja, layanan itu pasti tidak sanggup. Karena itu dibutuhkan sistem terdistribusi, yaitu sekumpulan komputer yang bekerja sama lewat jaringan, tetapi bagi pengguna terlihat seperti satu sistem saja. Pengguna tidak perlu tahu data mereka disimpan di server mana, atau apa yang terjadi kalau satu server mati. Dua hal yang penting di sini adalah skalabilitas, yaitu kemampuan sistem menangani beban yang makin besar, dan fault tolerance, yaitu kemampuan sistem tetap jalan walaupun sebagian komponennya rusak.
 
-## Konsep Utama & Penjelasan
+Ada tiga bentuk arsitektur dasar. Yang pertama client-server, di mana banyak pengguna terhubung ke satu server pusat. Bentuk ini sederhana, tetapi kalau servernya mati maka semuanya ikut mati. Yang kedua peer-to-peer, di mana semua komputer kedudukannya sama dan saling terhubung langsung tanpa server pusat, seperti BitTorrent dan Bitcoin. Yang ketiga hybrid, yaitu campuran keduanya. Aplikasi seperti WhatsApp dan Telegram memakai supernode sebagai penghubung, sementara pengiriman file bisa langsung antar pengguna.
 
-### 1. Mengapa penting?
-- Data dan pengguna tumbuh sangat besar, sehingga dibutuhkan **skalabilitas**.
-- Layanan harus **fault-tolerant** dan tersedia **24/7**.
-- Tanpa kedua jenis sistem ini, Google, Netflix, dan Blockchain tidak mungkin ada.
+Selain terdistribusi, ada juga istilah terdesentralisasi. Bedanya terletak pada fokusnya. Sistem terdistribusi membagi beban kerja ke banyak komputer, sedangkan sistem terdesentralisasi membagi kontrol atau kekuasaan sehingga tidak ada satu pihak yang memegang semuanya. Keputusan diambil bersama lewat kesepakatan yang disebut konsensus. Contoh sistem terdistribusi adalah Google File System, Apache Kafka, dan Netflix. Contoh sistem terdesentralisasi adalah blockchain, DNS, dan BitTorrent. Dua sistem ini saling berkaitan, tetapi tidak sama.
 
-### 2. Sistem terdistribusi
-> *"A collection of independent computers that appears to its users as a single coherent system."* — Tanenbaum & van Steen (2007)
+Materi ini juga membahas CAP Theorem dari Eric Brewer. Ada tiga hal yang diinginkan dari sistem data, yaitu data selalu sama di semua tempat (consistency), layanan selalu bisa dipakai (availability), dan sistem tetap jalan walau jaringan antar komputer terputus (partition tolerance). Karena jaringan yang terputus pasti bisa terjadi, kita harus memilih salah satu saat itu terjadi. Kalau memilih tetap melayani pengguna, datanya bisa sementara tidak sama. Kalau memilih menjaga data tetap sama, sebagian permintaan harus ditolak dulu. Di dalam slide, MongoDB dicontohkan sebagai pilihan yang pertama dan Apache Cassandra sebagai pilihan yang kedua. Terkait ini ada dua jenis konsistensi data. Strong consistency artinya hasilnya selalu sama di semua tempat, cocok untuk bank. Eventual consistency artinya data akan sama pada akhirnya, cukup untuk media sosial.
 
-Tiga ciri utama:
-- **Komponen independen**
-- **Berkomunikasi lewat jaringan**
-- **Transparan**: lokasi, akses, replikasi, dan kegagalan tidak terlihat oleh pengguna.
+Di bagian akhir dibahas tantangan dan arah ke depan. Tantangannya antara lain latency (berapa lama sebuah permintaan diproses), throughput (berapa banyak yang bisa diproses), serangan keamanan seperti DDoS dan Sybil attack (penyerang membuat banyak identitas palsu supaya punya pengaruh besar), rumitnya mengelola banyak komputer, dan soal tata kelola pada sistem terdesentralisasi. Tren yang sedang berkembang adalah cloud-native dengan Kubernetes dan Docker, edge dan fog computing, Web3 dan DeFi, serta federated learning.
 
-### 3. Arsitektur dasar
-| Arsitektur | Kontrol | Titik lemah | Contoh |
-|---|---|---|---|
-| **Client–Server** | Terpusat | Server = *single point of failure* | Web biasa |
-| **Peer-to-Peer (P2P)** | Merata | Koordinasi lebih rumit | BitTorrent, Bitcoin, Ethereum |
-| **Hybrid** | Sebagian | Supernode jadi titik penting | WhatsApp, Signal, Telegram |
-
-### 4. Karakteristik sistem terdistribusi
-Transparansi lokasi · Skalabilitas · Fault tolerance · Kinerja tinggi · Heterogenitas (beragam perangkat/OS/jaringan).
-
-### 5. Sistem terdesentralisasi
-- **Sentralisasi**: satu titik kontrol.
-- **Desentralisasi**: kontrol didistribusikan, **tidak ada single point of failure**.
-- Keputusan diambil kolektif lewat **konsensus**.
-- Contoh: **Blockchain, DNS, BitTorrent**.
-- Tiga topologi menurut **Paul Baran (1964)**: *Centralized*, *Decentralized*, *Distributed*.
-
-### 6. Terdistribusi vs terdesentralisasi
-| Aspek | Terdistribusi | Terdesentralisasi |
-|---|---|---|
-| **Fokus** | Pembagian **beban kerja** | Pembagian **kontrol** |
-| **Contoh** | Google File System, MinIO (kini di-fork ke Silo) | Blockchain |
-
-### 7. CAP Theorem (Eric Brewer, 2000)
-- **C — Consistency**: setiap baca mengembalikan tulisan terbaru, atau error.
-- **A — Availability**: setiap permintaan ke node yang tidak gagal mendapat respons non-error (walau bukan data terbaru).
-- **P — Partition Tolerance**: sistem tetap jalan walau komunikasi antar node terputus.
-
-Partisi **pasti** bisa terjadi, sehingga saat partisi perancang memilih:
-- **AP**: tetap melayani, risiko data tidak sinkron (contoh di slide: MongoDB).
-- **CP**: menolak read/write demi konsistensi (contoh di slide: Apache Cassandra).
-
-> Catatan: pengelompokan MongoDB sebagai AP dan Cassandra sebagai CP mengikuti slide dosen.
-
-### 8. Konsistensi data
-| Model | Arti | Contoh |
-|---|---|---|
-| **Strong** | Hasil selalu sama di semua node | Bank |
-| **Eventual** | Lama-lama konsisten | Media sosial |
-
-### 9. Tantangan dan tren
-- **Tantangan**: latency & throughput, keamanan (DDoS, **Sybil attack**), kompleksitas manajemen node, **governance** pada sistem terdesentralisasi.
-- **Sybil attack**: penyerang membuat banyak identitas palsu untuk mendominasi pengaruh, suara, atau reputasi di jaringan (umum di P2P dan blockchain).
-- **Tren**: Cloud-native (Kubernetes, Docker), Edge & Fog Computing, Web3 & DeFi, Federated Learning.
-
-## Contoh / Studi Kasus
-| Terdistribusi | Terdesentralisasi |
-|---|---|
-| Google File System / HDFS (penyimpanan data besar) | Blockchain (Bitcoin, Ethereum, Algorand, Sui, Near, Aptos, …) |
-| Apache Kafka, Apache Pulsar (messaging & streaming) | DNS |
-| Netflix, Twitch, YouTube | BitTorrent |
-| Instagram, Threads, Facebook, TikTok | |
-
-Contoh toko online: pengguna merasa memakai satu aplikasi, padahal di belakangnya ada API Gateway, Account Service, Inventory Service, Shipping Service, dan masing-masing database terpisah.
-
-```mermaid
-flowchart LR
-    M["Mobile app"] --> G["API Gateway"]
-    B["Browser"] --> S["Storefront WebApp"]
-    G --> A["Account Service"] --> ADB[("Account DB")]
-    G --> I["Inventory Service"] --> IDB[("Inventory DB")]
-    G --> H["Shipping Service"] --> HDB[("Shipping DB")]
-    S --> A
-    S --> I
-    S --> H
-```
-
-## Poin Penting (Key Takeaways)
-- Sistem terdistribusi = **berbagi beban kerja**; sistem terdesentralisasi = **berbagi kontrol**.
-- Keduanya terkait tetapi fokusnya berbeda, dan menjadi fondasi teknologi modern.
-- Saat partisi jaringan terjadi, perancang harus memilih antara **konsistensi (CP)** atau **ketersediaan (AP)**.
-
-## Bahan Diskusi
-1. Mengapa dunia semakin bergerak menuju distribusi dan desentralisasi?
-2. Contoh sehari-hari mana yang paling terasa bagi Anda?
-
-## Glosarium
-| Istilah | Pengertian |
-|---|---|
-| Skalabilitas | Kemampuan menangani peningkatan beban/pengguna tanpa menurunkan kinerja |
-| Fault-tolerant | Tetap beroperasi normal walau sebagian komponen gagal |
-| Single point of failure | Satu komponen yang bila gagal menjatuhkan seluruh sistem |
-| Konsensus | Mekanisme pengambilan keputusan kolektif antar node |
-| Latency | Seberapa lama sebuah permintaan diproses |
-| Throughput | Seberapa banyak permintaan diproses per satuan waktu |
-| Sybil attack | Serangan dengan banyak identitas palsu |
+**yang harus di ingat yah itu :** sistem terdistribusi berarti berbagi pekerjaan, sistem terdesentralisasi berarti berbagi kekuasaan, dan keduanya menjadi dasar teknologi modern.
