@@ -4,8 +4,9 @@ mata_kuliah: "Sistem Terdistribusi dan Terdesentralisasi"
 kode: FIF25002T
 Usat Jalung: 255410017 
 dosen: "Dr. Bambang Purnomosidi D. P."
+from: tambahakan teks yang kurang
+rakuman  di buat : awalan di buat manual laul di lenkapi dengan ia
 ---
-
 # Konsistensi dan Replikasi
 
 Konsistensi artinya semua komputer dalam sistem memiliki data yang sama, atau paling tidak terlihat sama bagi pengguna. Data yang disimpan di banyak tempat bisa berbeda satu sama lain. Contohnya saat nasabah mentransfer uang dari rekening A ke B. Kalau server pertama sudah mengurangi saldo A tetapi server kedua belum menambah saldo B, nasabah bisa gagal bertransaksi karena saldo B belum terlihat. Itulah sebabnya konsistensi penting.
@@ -20,4 +21,4 @@ Kalau dua pengguna mengubah data yang sama, konflik harus diselesaikan. Ada empa
 
 Ada lima protokol replikasi yang dibahas. Primary-based memakai satu server utama. Quorum-based menganggap operasi berhasil kalau cukup banyak server setuju, dengan syarat jumlah penulis ditambah jumlah pembaca lebih besar dari jumlah seluruh server. Pada tiga server dengan syarat tulis dua dan baca dua, tulisan yang sudah disetujui dua server pasti terbaca oleh pembaca yang menanyai dua server. State machine replication membuat semua replika menjalankan perintah yang sama dalam urutan yang sama lewat log milik pemimpin. Gossip protocol menyebarkan kabar dari satu komputer ke komputer lain secara acak sampai semuanya tahu, dipakai Cassandra. Chain replication menyusun komputer berantai, tulisan masuk dari ujung depan dan bacaan diambil dari ujung belakang. Studi kasus yang dipakai adalah PostgreSQL 18 dengan streaming replication dan Apache Ignite 3 dengan master-master.
 
-**Yang perlu diingat:** makin kuat konsistensi, makin lambat responsnya. Replikasi membuat sistem lebih tersedia dan cepat, tetapi harus disertai cara menjaga salinan tetap sama dan cara menyelesaikan konflik.
+**yang harus di ingat yah itu:** makin kuat konsistensi, makin lambat responsnya. Replikasi membuat sistem lebih tersedia dan cepat, tetapi harus disertai cara menjaga salinan tetap sama dan cara menyelesaikan konflik.
