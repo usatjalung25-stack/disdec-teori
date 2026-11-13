@@ -2,10 +2,11 @@
 Pertemuan 03: Sinkronisasi dan Koordinasi pada Sistem Terdistribusi"
 mata_kuliah: "Sistem Terdistribusi dan Terdesentralisasi"
 kode: FIF25002T
+Usat Jalung: 255410017 
 dosen: "Dr. Bambang Purnomosidi D. P."
 ---
 
-# Pertemuan 03: Sinkronisasi dan Koordinasi
+# Sinkronisasi dan Koordinasi
 
 Sinkronisasi berarti mengatur kerja banyak proses dan komputer supaya hasilnya tetap benar dan tidak saling bertabrakan. Contoh masalahnya mudah dilihat di toko online. Stok produk X ada 10. Pembeli A dan pembeli B sama-sama membaca stok 10, lalu masing-masing membeli satu. Keduanya menulis stok baru menjadi 9. Padahal sudah terjadi dua pembelian, jadi stok seharusnya 8. Kejadian seperti ini disebut data race atau race condition. Selain menjaga data tetap benar, sinkronisasi juga membantu mencegah deadlock (proses saling menunggu tanpa akhir), membagi beban kerja, dan menjaga keadaan aplikasi tetap sama di semua komputer.
 
