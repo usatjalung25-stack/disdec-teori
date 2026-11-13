@@ -2,6 +2,7 @@
 Pertemuan 02: Proses dan Komunikasi Antar Proses pada Sistem Terdistribusi"
 mata_kuliah: "Sistem Terdistribusi dan Terdesentralisasi"
 kode: FIF25002T
+Usat Jalung: 255410017 
 dosen: "Dr. Bambang Purnomosidi D. P."
 ---
 
