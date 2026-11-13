@@ -1,8 +1,8 @@
 ---
-Pertemuan 02: Proses dan Komunikasi Antar Proses pada Sistem Terdistribusi
-mata_kuliah: "Sistem Terdistribusi dan Terdesentralisasi
+Pertemuan 02: Proses dan Komunikasi Antar Proses pada Sistem Terdistribusi"
+mata_kuliah: "Sistem Terdistribusi dan Terdesentralisasi"
 kode: FIF25002T
-dosen: "Dr. Bambang Purnomosidi D. P.
+dosen: "Dr. Bambang Purnomosidi D. P."
 ---
 
 # Pertemuan 02: Proses dan Komunikasi Antar Proses
