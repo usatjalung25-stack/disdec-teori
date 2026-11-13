@@ -4,6 +4,8 @@ mata_kuliah: "Sistem Terdistribusi dan Terdesentralisasi"
 kode: FIF25002T
 Usat Jalung: 255410017 
 dosen: "Dr. Bambang Purnomosidi D. P."
+from: tambahakan teks yang kurang
+rakuman  di buat : awalan di buat manual laul di lenkapi dengan ia
 ---
 
 # Proses dan Komunikasi Antar Proses
