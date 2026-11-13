@@ -6,7 +6,7 @@ Usat Jalung: 255410017
 dosen: "Dr. Bambang Purnomosidi D. P."
 ---
 
-# Pertemuan 01: Pengenalan Sistem Terdistribusi dan Terdesentralisasi
+# Pengenalan Sistem Terdistribusi dan Terdesentralisasi
 
 Aplikasi yang kita pakai sehari-hari seperti Google, Netflix, atau YouTube dipakai oleh jutaan orang pada waktu yang sama dan harus bisa diakses kapan saja. Kalau semuanya dijalankan di satu komputer saja, layanan itu pasti tidak sanggup. Karena itu dibutuhkan sistem terdistribusi, yaitu sekumpulan komputer yang bekerja sama lewat jaringan, tetapi bagi pengguna terlihat seperti satu sistem saja. Pengguna tidak perlu tahu data mereka disimpan di server mana, atau apa yang terjadi kalau satu server mati. Dua hal yang penting di sini adalah skalabilitas, yaitu kemampuan sistem menangani beban yang makin besar, dan fault tolerance, yaitu kemampuan sistem tetap jalan walaupun sebagian komponennya rusak.
 
