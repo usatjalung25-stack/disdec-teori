@@ -6,7 +6,7 @@ Usat Jalung: 255410017
 dosen: "Dr. Bambang Purnomosidi D. P."
 ---
 
-# Pertemuan 02: Proses dan Komunikasi Antar Proses
+# Proses dan Komunikasi Antar Proses
 
 Proses adalah program yang sedang berjalan. Program itu sendiri hanya tumpukan instruksi yang tersimpan di disk. Begitu dijalankan, program dimuat ke memori dan menjadi proses, lalu sistem operasi mengatur kapan proses itu mendapat giliran memakai CPU. Sistem operasi mengelola proses lewat tiga hal, yaitu membuat proses baru, memindahkan proses ke tempat lain, dan memantau kondisi proses.
 
